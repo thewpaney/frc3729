@@ -58,7 +58,7 @@ public class Robot extends IterativeRobot {
         // Start timer
         init_timer.start();
         this.input_manager = new Input();
-        this.input_manager.set_mode(Params.default_drive_mode);
+        this.input_manager.set_mode(Input.mecanum);
         this.drive = new Drive();
         this.drive.lock_motors();
         this.manip = new Manipulator_practice();

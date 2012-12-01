@@ -83,7 +83,7 @@ public class Teleoperated {
         if (this.intake) {
             this._manip.intake(Relay.Value.kForward);
         }
-        */
+        
         if (!this.intake_sensor.get()) {
             this._manip.intake(false);
         }
@@ -141,6 +141,7 @@ public class Teleoperated {
         if (net_up && net_down) {
             this._manip.lift_net(Relay.Value.kOff);
         }
+        */
     }
 
     /**
@@ -194,7 +195,7 @@ public class Teleoperated {
         }
         // Button 10, tank drive 3 joysticks
         if (this._input_manager.check_button(1, 10)) {
-            this._input_manager.set_mode(Input.tank);
+            this._input_manager.set_mode(Input.mecanum);
         }
         // Button 11, lock all controls
         if (this._input_manager.check_button(1, 11)) {
