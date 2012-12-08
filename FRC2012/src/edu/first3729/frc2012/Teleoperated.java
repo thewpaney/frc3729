@@ -10,7 +10,6 @@ package edu.first3729.frc2012;
  */
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Relay;
-import edu.wpi.first.wpilibj.RobotDrive;
 
 /**
  *
@@ -22,7 +21,7 @@ import edu.wpi.first.wpilibj.RobotDrive;
 public class Teleoperated {
 
     private Input _input_manager;
-    private RobotDrive _drive;
+    private Drive _drive;
     private Manipulator _manip;
     private DigitalInput bridge_limit, intake_sensor;
     private double x = 0.0, y = 0.0, z = 0.0, left = 0.0, right = 0.0, scale_factor = 0.0;
@@ -35,7 +34,7 @@ public class Teleoperated {
      * @param manip instance of Manipulator class passed from Robot
      * @brief Constructor - takes subsystem classes passed from Robot
      */
-    public Teleoperated(Input imanager, RobotDrive drv, Manipulator manip) {
+    public Teleoperated(Input imanager, Drive drv, Manipulator manip) {
         this._input_manager = imanager;
         this._manip = manip;
         this._drive = drv;
@@ -47,7 +46,8 @@ public class Teleoperated {
      * @brief Initializes manipulator, locks drive, locks input
      */
     public void init() {
-        this._drive.tankDrive(0, 0);
+        this._input_manager.set_mode(Input.arcade_controller);
+        this._drive.lock_motors();
         this._manip.init();
     }
 
@@ -57,8 +57,22 @@ public class Teleoperated {
     public void run() {
         // Update input fields
         this.getInput();
-        // Drive teh robot
-        this._drive.arcadeDrive(this.x, this.y);
+        // Drive robot based on drive mode
+        switch (this._input_manager.get_mode()) {
+            case Input.mecanum:
+                this._drive.drive_mecanum(this.x, this.y, this.z);
+                break;
+            case Input.arcade_joy:
+            case Input.arcade_controller:
+                this._drive.drive_arcade(this.x, this.y);
+                break;
+            case Input.tank:
+                this._drive.drive_tank(this.left, this.right);
+                break;
+            case Input.locked:
+                this._drive.lock_motors();
+                break;
+        }
 
         /* If intake limit switch is hit, turn off intake relay
         if (!this.intake_limit.get()) {
@@ -134,6 +148,7 @@ public class Teleoperated {
      * @brief Updates local input fields with values read from input devices
      */
     public void getInput() {
+        int mode = this._input_manager.get_mode();
         if (this._input_manager.get_twist(1) > 0) {
             this.scale_factor = Params.drive_creep_scale_factor;
         } else {
@@ -146,6 +161,7 @@ public class Teleoperated {
         else
             this.y = this._input_manager.get_y() * scale_factor;
         this.z = this._input_manager.get_z() * scale_factor;
+
         switch (mode) {
             default:
             case Input.arcade_joy:  // Arcade drive, two joysticks

@@ -12,9 +12,8 @@ package edu.first3729.frc2012;
  */
 import edu.wpi.first.wpilibj.DriverStationLCD;
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.camera.AxisCamera;
+//import edu.wpi.first.wpilibj.camera.AxisCamera;
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.RobotDrive;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -27,11 +26,11 @@ public class Robot extends IterativeRobot {
 
     private Input input_manager;
     private DriverStationLCD screen;
-    private RobotDrive drive;
+    private Drive drive;
     private Teleoperated teleop;
     private Autonomous auto;
     private Manipulator manip;
-    private AxisCamera camera;
+    //private AxisCamera camera;
     private boolean auto_complete;
 
     /**
@@ -64,10 +63,10 @@ public class Robot extends IterativeRobot {
         this.manip = new Manipulator_practice();
         this.manip.init();
         this.teleop = new Teleoperated(input_manager, drive, manip);
-        this.auto = new Autonomous(drive, camera, manip);
-        this.camera = AxisCamera.getInstance(Params.camera_IP);
-        this.camera.writeResolution(Params.camera_resolution);
-        this.camera.writeMaxFPS(Params.camera_FPS);
+        this.auto = new Autonomous(drive, manip);
+        //this.camera = AxisCamera.getInstance(Params.camera_IP);
+        //this.camera.writeResolution(Params.camera_resolution);
+        //this.camera.writeMaxFPS(Params.camera_FPS);
 
         this.auto_complete = false;
 

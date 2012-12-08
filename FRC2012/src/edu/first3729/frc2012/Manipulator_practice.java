@@ -16,7 +16,7 @@ public class Manipulator_practice extends Manipulator {
     private Jaguar shooter1;
     private Jaguar shooter2;
 
-
+/*
     public Manipulator_practice()
     {
         shooter1 = new Jaguar(Params.shooter1_Jaguar_port);
@@ -37,4 +37,5 @@ public class Manipulator_practice extends Manipulator {
         }
 
     }
+    */
 }
