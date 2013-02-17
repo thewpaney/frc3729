@@ -23,7 +23,7 @@ public class Teleoperated {
     private Input _input_manager;
     private Drive _drive;
     private Manipulator _manip;
-    private DigitalInput bridge_limit, intake_sensor;
+    private DigitalInput intake2_limit, intake1_limit;
     private double x = 0.0, y = 0.0, z = 0.0, left = 0.0, right = 0.0, scale_factor = 0.0;
     private boolean polarity = false, net_down = false, net_up = false, intake = false, bridge_down = false, bridge_up = false;
     private boolean shoot_on = false, shoot_off = false, lift_on = false, lift_off = false;
@@ -38,8 +38,8 @@ public class Teleoperated {
         this._input_manager = imanager;
         this._manip = manip;
         this._drive = drv;
-        this.intake_sensor = new DigitalInput(Params.intake_sensor_digin_port);
-        this.bridge_limit = new DigitalInput(Params.bridge_limit_digin_port);
+        this.intake1_limit = new DigitalInput(Params.intake1_limit_digin_port);
+        this.intake2_limit = new DigitalInput(Params.intake2_limit_digin_port);
     }
 
     /**
@@ -59,9 +59,9 @@ public class Teleoperated {
         this.getInput();
         // Drive robot based on drive mode
         switch (this._input_manager.get_mode()) {
-            case Input.mecanum:
-                this._drive.drive_mecanum(this.x, this.y, this.z);
-                break;
+//            case Input.mecanum:
+//                this._drive.drive_mecanum(this.x, this.y, this.z);
+//                break;
             case Input.arcade_joy:
             case Input.arcade_controller:
                 this._drive.drive_arcade(this.x, this.y);

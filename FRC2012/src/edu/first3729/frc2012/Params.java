@@ -11,23 +11,25 @@ public class Params {
     // Port # constants: PWM out
     //! Port # of the front left Jaguar on the drive train
 
-    public static final int fl_port = 1;
+    public static final int left_port = 1;
     //! Port # of the front right Jaguar on the drive train
-    public static final int fr_port = 3;
+    public static final int right_port = 2;
     //! Port # of the back left Jaguar on the drive train
-    public static final int bl_port = 2;
+    public static final int climber_port = 3;
     //! Port # of the back right Jaguar on the drive train
-    public static final int br_port = 4;
-    public static final int shooter1_victor_port = 5;
-    public static final int shooter2_victor_port = 6;
+    public static final int shooter_victor_port = 4;
+    public static final int loading_port = 5;
+    public static final int intake_port = 6;
+    //public static final int shooter1_victor_port = 5;
+    //public static final int shooter2_victor_port = 6;
     //public static final int shooter1_Jaguar_port = 5;
     //public static final int shooter2_Jaguar_port = 6;
     public static final int intake_relay_port = 1;
-    public static final int elevator_relay_port = 2;
-    public static final int bridge_relay_port = 3;
-    public static final int net_relay_port = 4;
-    public static final int intake_sensor_digin_port = 1;
-    public static final int bridge_limit_digin_port = 2;
+    public static final int loader_relay_port = 2;
+    public static final int tail_relay_port = 3;
+    public static final int wheel_relay_port = 4;
+    public static final int intake1_limit_digin_port = 2;
+    public static final int intake2_limit_digin_port = 1;
     public static final double drive_creep_scale_factor = 0.2;
     public static final String camera_IP = "10.37.29.11";
     public static final AxisCamera.ResolutionT camera_resolution = AxisCamera.ResolutionT.k640x480;

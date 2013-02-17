@@ -5,23 +5,22 @@
  */
 package edu.first3729.frc2012;
 
-import edu.wpi.first.wpilibj.Jaguar;
+//import edu.wpi.first.wpilibj.Jaguar;
+import edu.wpi.first.wpilibj.Talon;
 
 public class Drive {
 
-    private Jaguar fl;
-    private Jaguar fr;
-    private Jaguar bl;
-    private Jaguar br;
+    private Talon left_motor;
+    private Talon right_motor;
     private double _x_prev;
     private double _y_prev;
     private double _z_prev;
-    private double fl_out, fr_out, br_out, bl_out;
+    private double left_out, right_out;
 
     private double ramp(double desired_output, double current_output, double increment) {
         if (desired_output <= .1 && desired_output >= -.1) {
             increment /= 2;
-        }
+        } 
         if (desired_output < current_output) {
             return current_output - increment;
         } else if (desired_output > current_output) {
@@ -33,10 +32,8 @@ public class Drive {
 
     public Drive() {
         _y_prev = _x_prev = _z_prev = 0.0;
-        fl = new Jaguar(Params.fl_port);
-        fr = new Jaguar(Params.fr_port);
-        bl = new Jaguar(Params.bl_port);
-        br = new Jaguar(Params.br_port);
+        left_motor = new Talon(Params.left_port);
+        right_motor = new Talon(Params.right_port);
 
     }
 
@@ -44,20 +41,16 @@ public class Drive {
         left = ramp(left, _x_prev, Params.x_ramp_increment);
         right = ramp(right, _y_prev, Params.y_ramp_increment);
 
-        fl.set(-left);
-        bl.set(-left);
-        fr.set(right);
-        br.set(right);
+        left_motor.set(left);
+        right_motor.set(right);
 
         _x_prev = left;
         _y_prev = right;
     }
 
     public void drive_tank_noramp(double left, double right) {
-        fl.set(-left);
-        bl.set(-left);
-        fr.set(right);
-        br.set(right);
+        left_motor.set(left);
+        right_motor.set(right);
     }
 
     // Input from x and y axes on joystick, mapped to y = speed, x = turn
@@ -87,10 +80,8 @@ public class Drive {
             System.out.println("Left: " + left);
             System.out.println("Right: " + right);
             
-            fl.set(-left);
-            fr.set(right);
-            bl.set(-left);
-            br.set(right);
+            left_motor.set(left);
+            right_motor.set(right);
 
         }
 
@@ -100,7 +91,7 @@ public class Drive {
     }
 
     // Mecanum drive!
-    public void drive_mecanum(double x, double y, double z) {
+/*   public void drive_mecanum(double x, double y, double z) {
         x = ramp(x, _x_prev, Params.x_ramp_increment);
         y = ramp(y, _y_prev, Params.y_ramp_increment);
         z = ramp(z, _z_prev, Params.z_ramp_increment);
@@ -155,7 +146,7 @@ public class Drive {
          * and turn right all at once.
          *
          */
-
+/*
         fl_out = y - x + z;
         fr_out = y + x - z;
         bl_out = y + x + z;
@@ -192,12 +183,10 @@ public class Drive {
         _y_prev = y;
         _z_prev = z;
     }
-
+*/
     public void lock_motors() {
-        fl_out = fr_out = br_out = bl_out = 0.0;
-        fl.set(fl_out);
-        bl.set(bl_out);
-        fr.set(fr_out);
-        br.set(br_out);
+        left_out = right_out = 0.0;
+        left_motor.set(left_out);
+        right_motor.set(right_out);
     }
 }

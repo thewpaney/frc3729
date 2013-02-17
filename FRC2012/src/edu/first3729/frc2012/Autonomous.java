@@ -16,7 +16,7 @@ import edu.wpi.first.wpilibj.communication.FRCControl;
  */
 public class Autonomous {
     
-    private Drive _drive;
+/*   private Drive _drive;
     //private AxisCamera _camera;
     private Manipulator _manip;
     //private BinaryImage _image;
@@ -88,7 +88,7 @@ public class Autonomous {
             return false;
         }
     }
-    
+   */
     public void target()
     {
         /*

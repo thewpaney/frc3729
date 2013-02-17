@@ -60,10 +60,10 @@ public class Robot extends IterativeRobot {
         this.input_manager.set_mode(Input.mecanum);
         this.drive = new Drive();
         this.drive.lock_motors();
-        this.manip = new Manipulator_practice();
+        //this.manip = new Manipulator_practice();
         this.manip.init();
         this.teleop = new Teleoperated(input_manager, drive, manip);
-        this.auto = new Autonomous(drive, manip);
+//        this.auto = new Autonomous(drive, manip);
         //this.camera = AxisCamera.getInstance(Params.camera_IP);
         //this.camera.writeResolution(Params.camera_resolution);
         //this.camera.writeMaxFPS(Params.camera_FPS);
@@ -108,12 +108,12 @@ public class Robot extends IterativeRobot {
     public void autonomousInit() {
         System.out.println("Going autonomous.");
         this.getWatchdog().setEnabled(false);
-        auto.init();
+//        auto.init();
     }
 
     public void autonomousPeriodic() {
-        while (!auto_complete) {
-            auto_complete = auto.run();
-        }
+        //while (!auto_complete) {
+        //    auto_complete = auto.run();
+        //}
     }
 }

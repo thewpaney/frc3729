@@ -7,56 +7,55 @@ package edu.first3729.frc2012;
 
 import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.Victor;
+import edu.wpi.first.wpilibj.Talon;
 
 /**
  *
  * @class Manipulator @brief Class that abstracts manipulator
  *
- * Manages assorted motor controllers to put balls in nets.   Mmmmm.  Oh yeah.
+ * Manages assorted motor controllers to put balls in nets.
  */
 public class Manipulator {
 
-    private Victor shooter1;
-    private Victor shooter2;
-    protected Relay elevator;
-    protected Relay bridge;
+    private Talon shooter;
+    private Talon climber;
+    protected Relay loader;
+    protected Relay tail;
+    protected Relay wheel;
     protected Relay intake;
-    protected Relay net;
 
     public Manipulator() {
-        shooter1 = new Victor(Params.shooter1_victor_port);
-        shooter2 = new Victor(Params.shooter2_victor_port);
-        elevator = new Relay(Params.elevator_relay_port);
-        bridge = new Relay(Params.bridge_relay_port);
+        shooter = new Talon(Params.shooter_victor_port);
+        climber = new Talon(Params.climber_port);
+        loader = new Relay(Params.loader_relay_port);
+        tail = new Relay(Params.tail_relay_port);
         intake = new Relay(Params.intake_relay_port);
-        net = new Relay(Params.net_relay_port);
+        wheel = new Relay(Params.wheel_relay_port);
     }
 
     public void init() {
-        elevator.setDirection(Relay.Direction.kBoth);
-        elevator.set(Relay.Value.kOff);
-        bridge.setDirection(Relay.Direction.kBoth);
-        bridge.set(Relay.Value.kOff);
+        loader.setDirection(Relay.Direction.kBoth);
+        loader.set(Relay.Value.kOff);
+        tail.setDirection(Relay.Direction.kBoth);
+        tail.set(Relay.Value.kOff);
         intake.setDirection(Relay.Direction.kBoth);
         intake.set(Relay.Value.kOff);
     }
 
     public void shoot(boolean state) {
         if (state) {
-            shooter1.set(Params.shooter1_speed);
-            shooter2.set(Params.shooter2_speed);
+            shooter.set(Params.shooter1_speed);
         } else {
-            shooter1.set(0.0);
-            shooter2.set(0.0);
+            shooter.set(0.0);
         }
 
     }
 
-    public void lift(boolean state) {
+    public void load(boolean state) {
         if (state) {
-            elevator.set(Relay.Value.kForward);
+            loader.set(Relay.Value.kForward);
         } else {
-            elevator.set(Relay.Value.kOff);
+            loader.set(Relay.Value.kOff);
         }
     }
 
@@ -70,11 +69,11 @@ public class Manipulator {
 
     }
 
-    public void bridge(Relay.Value state) {
-        bridge.set(state);
+    public void tail(Relay.Value state) {
+        tail.set(state);
     }
 
-    public void lift_net(Relay.Value state) {
-        net.set(state);
+    public void wheel(Relay.Value state) {
+        wheel.set(state);
     }
 }
